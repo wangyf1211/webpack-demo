@@ -104,3 +104,20 @@ module.exports={
 不支持向<code>target</code>传入多个字符串，可以通过打包两份分离的配置来创建同构的库
 
 
+
+### 添加图片之后
+
+    Version: webpack 4.29.6
+    Time: 2356ms
+    Built at: 2019-03-15 19:33:08
+    Asset      Size  Chunks             Chunk Names
+    bundle.js  76.7 KiB       0  [emitted]  main
+    d4224c3cf01a393d7b139d948b84808a.png  1.46 KiB          [emitted]  
+    Entrypoint main = bundle.js
+    [0] ./src/icon.png 82 bytes {0} [built]
+    [2] ./src/index.js 493 bytes {0} [built]
+    [3] (webpack)/buildin/global.js 472 bytes {0} [built]
+    [4] (webpack)/buildin/module.js 497 bytes {0} [built]
+    [5] ./src/style.css 1.06 KiB {0} [built]
+    [6] ./node_modules/css-loader/dist/cjs.js!./src/style.css 407 bytes {0} [built]
+        + 5 hidden modules
