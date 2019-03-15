@@ -1,7 +1,0 @@
-.hello {
-    color:red;
-}
-
-div:nth-of-type(2) {
-    background: url('./icon.png')
-}
