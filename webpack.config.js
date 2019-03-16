@@ -8,6 +8,11 @@ module.exports = {
     app: './src/index.js',
     print: './src/print.js'
   },
+  devtool:'inline-source-map',
+  devServer:{
+      contentBase:'./dist',
+      port:1111
+  },
   plugins: [
     new ManifestPlugin(),
     new CleanWebpackPlugin(),
