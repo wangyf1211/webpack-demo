@@ -1,5 +1,6 @@
-import _ from 'lodash';
+import {cube} from './math.js'
 import printMe from './print.js'
+import './style.css'
 
 function component() {
   var element = document.createElement('div');
@@ -14,5 +15,14 @@ function component() {
   element.appendChild(btn);
   return element;
 }
+let element=component()
+document.body.appendChild(element);
 
-document.body.appendChild(component());
+if(module.hot){
+  module.hot.accept('./print.js',()=>{
+    console.log('Accepting the updated printMe module');
+    document.body.removeChild(element)
+    element=component()
+    document.body.appendChild(element)
+  })
+}
