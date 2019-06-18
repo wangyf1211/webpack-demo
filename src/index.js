@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { search } from './search'
 function component() {
   var element = document.createElement('div');
 
@@ -9,3 +10,4 @@ function component() {
 }
 
 document.body.appendChild(component());
+document.write(search())

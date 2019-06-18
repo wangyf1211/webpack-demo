@@ -90,6 +90,10 @@ module.exports={
     mode:'production'
 };
 ```
+在production模式下设置<code>process.env.NODE_ENV</code>值为<code>production</code>，开启<code>FlagDependencyUsagePlugin</code>,<code>FlagIncluedChunksPlugin</code>，<code>ModuleConcatenationPlugin</code>,
+<code>NoEmitOnErrorsPlugin</code>,<code>OccurrenceOrderPlugin</code>,<code>SideEffectsFlagPlugin</code>和<code>TerserPlugin</code>
+
+在development模式下设置<code>process.env.NODE_ENV</code>值为<code>development</code>，开启<code>NamedChunksPlugin</code>和<code>NamedModulesPlugin</code>
 
 ### 依赖图
 一个文件依赖另一个文件，两个文件之间就有<mark>依赖关系</mark>
