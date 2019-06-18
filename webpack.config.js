@@ -9,5 +9,13 @@ module.exports={
         filename:'[name].js',
         path:path.resolve(__dirname,'dist')
     },
-    mode:'production'
+    mode:'production',
+    module:{
+        rules:[
+            {
+                test:/.js$/,
+                use:'babel-loader'
+            }
+        ]
+    }
 }

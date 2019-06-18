@@ -108,3 +108,12 @@ module.exports={
 不支持向<code>target</code>传入多个字符串，可以通过打包两份分离的配置来创建同构的库
 
 
+### 安装配置babel
+
+    npm i @babel/core @babel/preset-env babel-loader -D
+  
+添加.babelrc配置文件
+
+### loader转JSX
+
+  .babelrc配置添加<code>@babel/preset-react</code>
