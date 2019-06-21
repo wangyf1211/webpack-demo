@@ -1,6 +1,8 @@
 const path=require('path')
 const webpack=require('webpack')
 const MiniCssExtractPlugin=require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin=require('optimize-css-assets-webpack-plugin')
+const HtmlWebpackPlugin=require('html-webpack-plugin')
 
 module.exports={
     entry:{
@@ -47,6 +49,25 @@ module.exports={
     plugins:[
         new MiniCssExtractPlugin({
             filename:'[name]_[contenthash:8].css'
+        }),
+        new OptimizeCSSAssetsPlugin({
+            assetNameRegExp:/\.css$/g,
+            cssProcessor:require('cssnano')
+        }),
+        new HtmlWebpackPlugin({
+            //模板
+            template:path.join(__dirname,'src/index.html'),
+            filename:'index.html',
+            chunks:['search'],
+            inject:true,
+            minify:{
+                html5:true,
+                collapseWhitespace:true,
+                preserveLineBreaks:false,
+                minifyCSS:true,
+                minifyCSS:true,
+                removeComments:true
+            }
         })
     ]
 }

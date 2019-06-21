@@ -217,3 +217,43 @@ module:{
 }
 ```
 这里的hash其实是指contenthash,默认使用md5生成,默认有32位
+
+### 文件压缩
+对于js压缩，通过内置的uglifyjs-webpack-plugin
+
+可以进行配置，配置并行压缩
+
+#### css文件的压缩
+使用optimize-css-assets-webpack-plugin同时使用cssnano预处理器
+
+npm i optimize-css-assets-webpack-plugin
+
+```
+plugins:[
+  new OptimizeCSSAssetsPlugin({
+    assetNameRegExp:/\.css$/g,
+    cssProcessor:require('cssnano')//按需加载
+  })
+]
+```
+
+#### html文件的压缩
+修改html-webpack-plugin，设置压缩参数
+```
+plugins:[
+  new HtmlWebpackPlugin({
+    template:path.join(__dirname,'src/search.html'),
+    filename:'search.html',
+    chunks:['search'],
+    inject:true,
+    minify:{
+      html5:true,
+      collapseWhitespace:true,
+      preserveLineBreaks:false,
+      minifyCSS:true,
+      minifyJS:true,
+      removeComments:false
+    }
+  })
+]
+```
