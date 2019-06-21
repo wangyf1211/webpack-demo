@@ -172,3 +172,48 @@ HMR Runtime: 会被注入到浏览器，更新文件的变化
 bundle.js: 构建输出的文件
   
   HMR server在服务器端, HMR Runtime在客户端，server检测到文件变化之后，就会以json的形式传给客户端，所以不需要刷新浏览器
+
+
+### 文件指纹
+打包后输出的文件名的后缀，用于做版本管理
+
+#### 如何生成呢
+1. hash:和整个项目的构建相关，只要项目文件修改，整个项目构建的hash值就会更改
+2. chunkhash：和webpack打包的chunk有关，不同的entry会生成不同的chunkhash值
+3. contenthash：根据文件内容来定义hash，文件内容不变，则contenthash不变
+
+#### JS、CSS、图片的文件指纹设置
+通过设置output的filename，使用\[chunkpath\]
+
+示例：
+<code>filename:'[name][chunkhash:8].js'</code>
+
+对于CSS文件，一般通过css-loader和style-loader作用之后会生成style标签插入到头部，所以没有独立的css文件，对此可以使用MiniCssExtractPlugin的filename
+
+npm i mini-css-extract-plugin -D
+
+```
+plugins:[
+  new MiniCssExtractPlugin({
+    filename:'[name][contenthash:8].css
+  })
+]
+```
+
+对于图片
+```
+module:{
+  rules:[
+    {
+      test:/\.(png|jpg|jpeg|svg|gif)$,
+      use:[{
+        loader:'file-loader',
+        options:{
+          name:'img/[name][hash:8].[ext]'//[ext]表示资源后缀名
+        }
+      }]
+    }
+  ]
+}
+```
+这里的hash其实是指contenthash,默认使用md5生成,默认有32位
