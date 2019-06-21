@@ -121,3 +121,54 @@ module.exports={
 ### file-loader & url-loader
 
   url-loader包括file-loader，有个limit参数，小于limit的使用base64编码，可以减少请求数，大于limit的还是使用file-loader
+
+### webpack watch文件监听的原理分析
+轮询判断文件的最后编辑时间是否变化
+
+某个文件发生变化并不会立刻告诉监听者，先缓存起来，等<code>aggregatetimeout</code>
+
+```
+module.export={
+  //默认为false
+  watch:true,
+  watchOptions:{
+    //默认为空，不监听的文件或文件夹，支持正则匹配
+    ignored:/node_modules/,
+    //监听到变化发生后会等300ms再去执行，默认300ms
+    aggregateTimeout:300,
+    //判断文件是否发生变化是通过不断询问系统指定文件有没有变化实现的，默认每秒问1000次
+    poll:1000
+  }
+}
+```
+
+### 热更新
+通过webpack-dev-server(简称WDS)和HotModuleReplacementPlugin插件
+
+通过npm i webpack-dev-server -D和引入webpack自带的HMP
+
+此外，使用webpack-dev-middleware将webpack输出的文件传输给服务器，适用于灵活的定制场景
+```
+const express=require('express')
+const webpack=require('webpack')
+const webpackDevMiddleware=require('webpackDevMiddleware')
+const app=express()
+const config=require('./webpack.config.js')
+const compiler=webpack(config)
+
+app.use(webpackDevMiddleware(compiler,{
+  publicPath:config.output.publicPattth
+}))
+
+app.listen(3000,function(){
+  console.log('Example app listening on port 3000!\n')
+})
+```
+#### 热更新的原理分析
+webpack compiler: 将JS编译成Bundle
+HMR server: 将热更新的文件输出给HMR Runtime
+Bundle server: 提供文件在浏览器的访问
+HMR Runtime: 会被注入到浏览器，更新文件的变化
+bundle.js: 构建输出的文件
+  
+  HMR server在服务器端, HMR Runtime在客户端，server检测到文件变化之后，就会以json的形式传给客户端，所以不需要刷新浏览器

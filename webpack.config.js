@@ -1,4 +1,5 @@
 const path=require('path')
+const webpack=require('webpack')
 
 module.exports={
     entry:{
@@ -9,7 +10,7 @@ module.exports={
         filename:'[name].js',
         path:path.resolve(__dirname,'dist')
     },
-    mode:'production',
+    mode:'development',
     module:{
         rules:[
             {
@@ -41,5 +42,12 @@ module.exports={
                 }]
             }
         ]
+    },
+    plugins:[
+        new webpack.HotModuleReplacementPlugin()
+    ],
+    devServer:{
+        contentBase:'./dist',
+        hot:true
     }
 }
