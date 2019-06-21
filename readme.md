@@ -117,3 +117,7 @@ module.exports={
 ### loader转JSX
 
   .babelrc配置添加<code>@babel/preset-react</code>
+
+### file-loader & url-loader
+
+  url-loader包括file-loader，有个limit参数，小于limit的使用base64编码，可以减少请求数，大于limit的还是使用file-loader
