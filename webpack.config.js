@@ -30,6 +30,15 @@ module.exports={
                     'css-loader',
                     'less-loader'
                 ]
+            },
+            {
+                test:/\.(png|jpg|jpeg|gif|svg)$/,
+                use:[{
+                    loader:'url-loader',
+                    options:{
+                        limit:40960
+                    }
+                }]
             }
         ]
     }

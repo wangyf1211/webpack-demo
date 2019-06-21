@@ -3,10 +3,12 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import './search.less'
+import pika from './pika.jpeg'
 
 class Search extends React.Component{
     render(){
-        return <div class="search-text">Search Text<a href="http://www.baidu.com">link</a></div>
+        return <div class="search-text">Search Text <a href="http://www.baidu.com">link</a>
+        <img src={pika} alt="pika" /></div>
     }
 }
 ReactDom.render(
