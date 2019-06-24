@@ -269,3 +269,75 @@ rm -rf ./dist && webpack
     plugins:[
       new CleanWebpackPlugin()//配置见https://www.npmjs.com/package/clean-webpack-plugin
     ]
+  
+### CSS3属性添加前缀
+由于浏览器标准并没有完全统一，目前有四种主流的浏览器内核
+(Trident-ms Geko-moz Webkit-webkit Presto-o)
+```
+.box{
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+  -o-border-radius:10px;
+  border-radius:10px;
+}
+```
+通过autoprefixer插件自动补全CSS前缀 //can i use 
+<code>npm i postcss-loader autoprefixer -D</code>
+```
+module.exports={
+  module:{
+    rules:[
+      {
+        test:/\.less$/,
+        use:[
+          'style-loader',
+          'css-loader',
+          'less-loader',
+          {
+            loader:'postcss-loader',
+            options:{
+              plugins:()=>[
+                require('autoprefixer')({
+                  browsers:['last 2 version','>1%','iOS 7']
+                })
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### 移动端CSS px自动转换成rem
+
+    npm i px2rem-loader -D
+    npm i lib-flexible -S
+
+    px绝对单位
+    rem相对单位
+
+使用px2rem-loader在页面渲染时计算跟元素的font-size值
+1. 使用手淘的lib-flexible库
+2. https://github.com/amfe/lib-flexible
+
+    module.exports={
+      module:{
+        rules:[
+          test:/\.less$/,
+          use:[
+            'style-loader',
+            'css-loader',
+            {
+              loader:'px2rem-loader',
+              options:{
+                remUnit:75,
+                remPrecision:8
+              }
+            },
+            'less-loader',
+          ]
+        ]
+      }
+    }
