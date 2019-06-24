@@ -3,6 +3,7 @@ const webpack=require('webpack')
 const MiniCssExtractPlugin=require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin=require('optimize-css-assets-webpack-plugin')
 const HtmlWebpackPlugin=require('html-webpack-plugin')
+const { CleanWebpackPlugin }=require('clean-webpack-plugin')
 
 module.exports={
     entry:{
@@ -40,7 +41,7 @@ module.exports={
                 use:[{
                     loader:'file-loader',
                     options:{
-                        name:'[name]_[hash:8][ext]'
+                        name:'[name]_[hash:8].[ext]'
                     }
                 }]
             }
@@ -54,6 +55,7 @@ module.exports={
             assetNameRegExp:/\.css$/g,
             cssProcessor:require('cssnano')
         }),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             //模板
             template:path.join(__dirname,'src/index.html'),
@@ -69,5 +71,6 @@ module.exports={
                 removeComments:true
             }
         })
+        
     ]
 }

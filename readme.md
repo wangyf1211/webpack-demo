@@ -257,3 +257,15 @@ plugins:[
   })
 ]
 ```
+
+### 清理构建目录
+rm -rf ./dist && webpack
+
+或者使用clean-webpack-plugin默认删除output指定的目录
+
+注意⚠️
+
+    const { CleanWebpackPlugin } from 'clean-webpack-plugin'
+    plugins:[
+      new CleanWebpackPlugin()//配置见https://www.npmjs.com/package/clean-webpack-plugin
+    ]
