@@ -321,7 +321,7 @@ module.exports={
 使用px2rem-loader在页面渲染时计算跟元素的font-size值
 1. 使用手淘的lib-flexible库
 2. https://github.com/amfe/lib-flexible
-
+```
     module.exports={
       module:{
         rules:[
@@ -341,3 +341,45 @@ module.exports={
         ]
       }
     }
+```
+
+### 资源内联的意义
+代码层面：
+
+    页面框架的初始化脚本
+    上报相关打点
+    css内联避免页面闪动FOUC
+
+请求层面：
+
+    减少HTTP网络请求数
+    小图片或者字体内联（使用url-loader)
+
+<code>npm i raw-loader@0.5.1 -D</code>
+#### raw-loader内联html
+
+    ${require('raw-loader!./meta.html')}//添加到head中
+
+#### raw-loader内联JS
+
+    <script>${require('raw-loader!babel-loader!../node_modules/lib-flexible')}</script>
+
+### CSS内联
+Method1 借助style-loader
+```
+module:{
+  rules:[
+    {
+      loader:'style-loader',
+      options:{
+        insertAt:'top',//样式插入到<head>
+        singleton:true//将所有style标签合并成一个
+      }
+    },
+    "css-loader",
+    "less-loader"
+  ]
+}
+```
+
+Method2 html-inline-css-webpack-plugin
