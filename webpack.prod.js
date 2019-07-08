@@ -6,11 +6,28 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {
     CleanWebpackPlugin
 } = require('clean-webpack-plugin')
+const glob=require('glob')
 
+const setMPA=()=>{
+    const entry={};
+    const htmlWebpackPlugins=[];
+    const entryFiles=glob.sync(path.join(__dirname,'./src/*/index.js'));
+    Object.keys(entryFiles).map((index)=>{
+        const entryFile=entryFiles[index]
+        const pageName=entryFile.match(/src\/(.*)\/index\.js/)
+        console.log(pageName)
+    })
+    
+    return {
+        entry,
+        htmlWebpackPlugins
+    }
+}
+setMPA();
 module.exports = {
     entry: {
-        index: './src/index.js',
-        search: './src/search.js'
+        index: './src/index/index.js',
+        search: './src/search/index.js'
     },
     output: {
         filename: '[name]_[chunkhash:8].js',
@@ -83,7 +100,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             //模板
-            template: path.join(__dirname, 'src/index.html'),
+            template: path.join(__dirname, 'src/search/index.html'),
             filename: 'index.html',
             chunks: ['search'],
             inject: true,
